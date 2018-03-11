@@ -1,0 +1,11 @@
+{
+  "data": {
+    "id": "test-collection",
+    "last_modified": 1520740643872
+  },
+  "permissions": {
+    "write": [
+      "basicauth:217b15401d02c23966ff27031ffbc473e00b6d4277bca9b12388c1dd1893c0cc"
+    ]
+  }
+}
