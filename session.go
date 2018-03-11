@@ -19,16 +19,23 @@ func NewSession(baseURL string, user string, password string) (*Session, error) 
 		Timeout: time.Second * 10,
 	}
 	session := &Session{
-		baseURL: baseURL,
-		client:  client,
-		user:user,
-		password:password,
+		baseURL:  baseURL,
+		client:   client,
+		user:     user,
+		password: password,
 	}
 	return session, nil
 }
 
-func (s Session) Request(method string, path string, body io.Reader, target interface{}) error {
-	req, err := http.NewRequest(method, s.baseURL+path, body)
+func (s Session) Request(method string, path string, query Options, body io.Reader, target interface{}) error {
+	finalURL := s.baseURL + path
+
+	params := buildParams(query)
+	if params != "" {
+		finalURL += "?" + params
+	}
+
+	req, err := http.NewRequest(method, finalURL, body)
 	if err != nil {
 		return err
 	}

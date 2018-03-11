@@ -2,11 +2,14 @@ package kinto
 
 import (
 	"fmt"
+	"net/url"
 )
 
 type KintoClient struct {
 	session *Session
 }
+
+type Options map[string]string
 
 func NewClient(baseURL string, user string, password string) (*KintoClient, error) {
 	session, err := NewSession(baseURL, user, password)
@@ -28,4 +31,12 @@ func (c KintoClient) HeartBeat() (interface{}, error) {
 	var status map[string]bool
 	err := c.session.Request("GET", path, nil, &status)
 	return status, err
+}
+
+func buildParams(opts Options) string {
+	params := url.Values{}
+	for key, value := range opts {
+		params.Add(key, value)
+	}
+	return params.Encode()
 }
