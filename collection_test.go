@@ -29,6 +29,23 @@ func TestKintoClient_GetCollections(t *testing.T) {
 	assertJSON(got, res.Data, t)
 }
 
+func TestKintoClient_GetCollectionsWithOpts(t *testing.T) {
+	kc := KintoClientSetup()
+	defer KintoClientTearDown(kc)
+
+	opts := Options{
+		"field": "id",
+		"sort":  "-id",
+	}
+
+	var res bucketsRes
+	fixture("/collections/collections.json", &res)
+	gock.New(TEST_BASE_URI).Get(kc.buildURI(COLLECTIONS_URI, TEST_BUCKET)).MatchParams(opts).Reply(200).JSON(res)
+
+	got, _ := kc.GetCollections(TEST_BUCKET, opts)
+	assertJSON(got, res.Data, t)
+}
+
 func TestKintoClient_GetCollection(t *testing.T) {
 	kc := KintoClientSetup()
 	defer KintoClientTearDown(kc)
