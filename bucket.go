@@ -23,8 +23,8 @@ type bucketsRes struct {
 	Data []Bucket `json:"data"`
 }
 
-func (c KintoClient) CreateBucket(bucket string) (Bucket, error) {
-	path := c.buildURI(BUCKETS_URI)
+func (kc KintoClient) CreateBucket(bucket string) (Bucket, error) {
+	path := kc.buildURI(BUCKETS_URI)
 
 	req := bucketReq{Data: Bucket{ID: bucket}}
 	reqJSON, err := json.Marshal(req)
@@ -33,29 +33,29 @@ func (c KintoClient) CreateBucket(bucket string) (Bucket, error) {
 	}
 
 	var res bucketRes
-	err = c.session.Request("POST", path, bytes.NewReader(reqJSON), &res)
+	err = kc.session.Request("POST", path, nil, bytes.NewReader(reqJSON), &res)
 	if err != nil {
 		return Bucket{}, err
 	}
 	return res.Data, nil
 }
 
-func (c KintoClient) GetBuckets() ([]Bucket, error) {
-	path := c.buildURI(BUCKETS_URI)
+func (kc KintoClient) GetBuckets(opts Options) ([]Bucket, error) {
+	path := kc.buildURI(BUCKETS_URI)
 
 	var res bucketsRes
-	err := c.session.Request("GET", path, nil, &res)
+	err := kc.session.Request("GET", path, opts, nil, &res)
 	if err != nil {
 		return nil, err
 	}
 	return res.Data, nil
 }
 
-func (c KintoClient) GetBucket(bucket string) (Bucket, error) {
-	path := c.buildURI(BUCKET_URI, bucket)
+func (kc KintoClient) GetBucket(bucket string, opts Options) (Bucket, error) {
+	path := kc.buildURI(BUCKET_URI, bucket)
 
 	var res bucketRes
-	err := c.session.Request("GET", path, nil, &res)
+	err := kc.session.Request("GET", path, opts, nil, &res)
 	if err != nil {
 		return Bucket{}, err
 	}

@@ -25,7 +25,7 @@ func TestKintoClient_GetBuckets(t *testing.T) {
 	fixture("/buckets/buckets.json", &res)
 	gock.New(TEST_BASE_URI).Get(kc.buildURI(BUCKETS_URI)).Reply(200).JSON(res)
 
-	got, _ := kc.GetBuckets()
+	got, _ := kc.GetBuckets(nil)
 	assertJSON(got, res.Data, t)
 }
 
@@ -37,6 +37,6 @@ func TestKintoClient_GetBucket(t *testing.T) {
 	fixture("/buckets/bucket.json", &res)
 	gock.New(TEST_BASE_URI).Get(kc.buildURI(BUCKET_URI, TEST_BUCKET)).Reply(200).JSON(res)
 
-	got, _ := kc.GetBucket(TEST_BUCKET)
+	got, _ := kc.GetBucket(TEST_BUCKET, nil)
 	assertJSON(got, res.Data, t)
 }

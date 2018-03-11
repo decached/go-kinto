@@ -24,8 +24,8 @@ type collectionsRes struct {
 	Data []Collection `json:"data"`
 }
 
-func (c KintoClient) CreateCollection(bucket string, collection string) (Collection, error) {
-	path := c.buildURI(COLLECTIONS_URI, bucket)
+func (kc KintoClient) CreateCollection(bucket string, collection string) (Collection, error) {
+	path := kc.buildURI(COLLECTIONS_URI, bucket)
 
 	req := collectionReq{Data: Collection{ID: collection}}
 	reqJSON, err := json.Marshal(req)
@@ -34,29 +34,29 @@ func (c KintoClient) CreateCollection(bucket string, collection string) (Collect
 	}
 
 	var res collectionRes
-	err = c.session.Request("POST", path, bytes.NewReader(reqJSON), &res)
+	err = kc.session.Request("POST", path, nil, bytes.NewReader(reqJSON), &res)
 	if err != nil {
 		return Collection{}, err
 	}
 	return res.Data, nil
 }
 
-func (c *KintoClient) GetCollections(bucket string) ([]Collection, error) {
-	path := c.buildURI(COLLECTIONS_URI, bucket)
+func (kc KintoClient) GetCollections(bucket string, opts Options) ([]Collection, error) {
+	path := kc.buildURI(COLLECTIONS_URI, bucket)
 
 	var res collectionsRes
-	err := c.session.Request("GET", path, nil, &res)
+	err := kc.session.Request("GET", path, opts, nil, &res)
 	if err != nil {
 		return nil, err
 	}
 	return res.Data, nil
 }
 
-func (c KintoClient) GetCollection(bucket string, collection string) (Collection, error) {
-	path := c.buildURI(COLLECTION_URI, bucket, collection)
+func (kc KintoClient) GetCollection(bucket string, collection string, opts Options) (Collection, error) {
+	path := kc.buildURI(COLLECTION_URI, bucket, collection)
 
 	var res collectionRes
-	err := c.session.Request("GET", path, nil, &res)
+	err := kc.session.Request("GET", path, nil, nil, &res)
 	if err != nil {
 		return Collection{}, err
 	}

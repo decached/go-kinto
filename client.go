@@ -22,14 +22,14 @@ func NewClient(baseURL string, user string, password string) (*KintoClient, erro
 	return kc, nil
 }
 
-func (c KintoClient) buildURI(format string, params ...interface{}) string {
+func (kc KintoClient) buildURI(format string, params ...interface{}) string {
 	return fmt.Sprintf(format, params...)
 }
 
-func (c KintoClient) HeartBeat() (interface{}, error) {
-	path := c.buildURI(HEARTBEAT_URI)
+func (kc KintoClient) HeartBeat() (interface{}, error) {
+	path := kc.buildURI(HEARTBEAT_URI)
 	var status map[string]bool
-	err := c.session.Request("GET", path, nil, &status)
+	err := kc.session.Request("GET", path, nil, nil, &status)
 	return status, err
 }
 

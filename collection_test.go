@@ -25,7 +25,7 @@ func TestKintoClient_GetCollections(t *testing.T) {
 	fixture("/collections/collections.json", &res)
 	gock.New(TEST_BASE_URI).Get(kc.buildURI(COLLECTIONS_URI, TEST_BUCKET)).Reply(200).JSON(res)
 
-	got, _ := kc.GetCollections(TEST_BUCKET)
+	got, _ := kc.GetCollections(TEST_BUCKET, nil)
 	assertJSON(got, res.Data, t)
 }
 
@@ -37,6 +37,6 @@ func TestKintoClient_GetCollection(t *testing.T) {
 	fixture("/collections/collection.json", &res)
 	gock.New(TEST_BASE_URI).Get(kc.buildURI(COLLECTION_URI, TEST_BUCKET, TEST_COLLECTION)).Reply(200).JSON(res)
 
-	got, _ := kc.GetCollection(TEST_BUCKET, TEST_COLLECTION)
+	got, _ := kc.GetCollection(TEST_BUCKET, TEST_COLLECTION, nil)
 	assertJSON(got, res.Data, t)
 }
