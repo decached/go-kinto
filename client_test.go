@@ -3,7 +3,7 @@ package kinto
 import (
 	"encoding/json"
 	"fmt"
-	"gopkg.in/h2non/gock.v1"
+	"github.com/h2non/gock"
 	"io/ioutil"
 	"reflect"
 	"testing"
@@ -15,7 +15,7 @@ const (
 	TEST_BASE_URI   = "http://localhost:8888/v1"
 	TEST_BUCKET     = "test-bucket"
 	TEST_COLLECTION = "test-collection"
-	TEST_RECORD_ID  = "test-id"
+	TEST_RECORD_ID  = "66b18d0c-a3a8-4be7-8ce0-1aceac89ff75"
 )
 
 func assert(got interface{}, want interface{}, t *testing.T) {

@@ -1,7 +1,7 @@
 package kinto
 
 import (
-	"gopkg.in/h2non/gock.v1"
+	"github.com/h2non/gock"
 	"testing"
 )
 
@@ -38,7 +38,7 @@ func TestKintoClient_GetCollectionsWithOpts(t *testing.T) {
 		"sort":  "-id",
 	}
 
-	var res bucketsRes
+	var res collectionsRes
 	fixture("/collections/collections.json", &res)
 	gock.New(TEST_BASE_URI).Get(kc.buildURI(COLLECTIONS_URI, TEST_BUCKET)).MatchParams(opts).Reply(200).JSON(res)
 
