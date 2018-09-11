@@ -54,6 +54,6 @@ func TestKintoClient_GetCollection(t *testing.T) {
 	fixture("/collections/collection.json", &res)
 	gock.New(TEST_BASE_URI).Get(kc.buildURI(COLLECTION_URI, TEST_BUCKET, TEST_COLLECTION)).Reply(200).JSON(res)
 
-	got, _ := kc.GetCollection(TEST_BUCKET, TEST_COLLECTION, nil)
+	got, _ := kc.GetCollection(TEST_BUCKET, TEST_COLLECTION)
 	assertJSON(got, res.Data, t)
 }

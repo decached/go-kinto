@@ -52,7 +52,7 @@ func (kc KintoClient) GetCollections(bucket string, opts Options) ([]Collection,
 	return res.Data, nil
 }
 
-func (kc KintoClient) GetCollection(bucket string, collection string, opts Options) (Collection, error) {
+func (kc KintoClient) GetCollection(bucket string, collection string) (Collection, error) {
 	path := kc.buildURI(COLLECTION_URI, bucket, collection)
 
 	var res collectionRes
