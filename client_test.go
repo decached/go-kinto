@@ -58,7 +58,7 @@ func TestKintoClient_Info(t *testing.T) {
 	defer KintoClientTearDown(kc)
 
 	var want interface{}
-	fixture("/info.json", &want)
+	fixture("/meta/info.json", &want)
 	gock.New(TEST_BASE_URI).Get(kc.buildURI(INFO_URI)).Reply(200).JSON(want)
 
 	got, _ := kc.Info()
@@ -70,8 +70,20 @@ func TestKintoClient_HeartBeat(t *testing.T) {
 	defer KintoClientTearDown(kc)
 
 	var want interface{}
-	fixture("/heartbeat.json", &want)
+	fixture("/meta/heartbeat.json", &want)
 	gock.New(TEST_BASE_URI).Get(kc.buildURI(HEARTBEAT_URI)).Reply(200).JSON(want)
+
+	got, _ := kc.HeartBeat()
+	assertJSON(got, want, t)
+}
+
+
+func TestKintoClient_LbHeartBeat(t *testing.T) {
+	kc := KintoClientSetup()
+	defer KintoClientTearDown(kc)
+
+	var want interface{}
+	gock.New(TEST_BASE_URI).Get(kc.buildURI(LB_HEARTBEAT_URI)).Reply(200).JSON(want)
 
 	got, _ := kc.HeartBeat()
 	assertJSON(got, want, t)
@@ -85,5 +97,17 @@ func TestKintoClient_Flush(t *testing.T) {
 	gock.New(TEST_BASE_URI).Get(kc.buildURI(FLUSH_URI)).Reply(200).JSON(want)
 
 	got, _ := kc.Flush()
+	assertJSON(got, want, t)
+}
+
+func TestKintoClient_Version(t *testing.T) {
+	kc := KintoClientSetup()
+	defer KintoClientTearDown(kc)
+
+	var want interface{}
+	fixture("/meta/version.json", &want)
+	gock.New(TEST_BASE_URI).Get(kc.buildURI(VERSION_URI)).Reply(200).JSON(want)
+
+	got, _ := kc.Version()
 	assertJSON(got, want, t)
 }

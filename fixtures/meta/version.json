@@ -1,0 +1,6 @@
+{
+  "name":"kinto",
+  "version":"3.3.2",
+  "commit":"ab8db089ee63dc8e14f4bcfc427a86f311dd7e52",
+  "source":"https://github.com/Kinto/kinto.git"
+}

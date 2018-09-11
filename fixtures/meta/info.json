@@ -1,0 +1,21 @@
+{
+  "project_name": "kinto",
+  "project_version": "10.0.1.dev0",
+  "http_api_version": "1.2",
+  "project_docs": "https://kinto.readthedocs.io/",
+  "url": "http://localhost:8888/v1/",
+  "settings": {
+    "batch_max_requests": 25,
+    "readonly": false
+  },
+  "capabilities": {
+    "basicauth": {
+      "description": "Very basic authentication sessions. Not for production use.",
+      "url": "http://kinto.readthedocs.io/en/stable/api/1.x/authentication.html"
+    },
+    "default_bucket": {
+      "description": "The default bucket is an alias for a personal bucket where collections are created implicitly.",
+      "url": "https://kinto.readthedocs.io/en/latest/api/1.x/buckets.html#personal-bucket-default"
+    }
+  }
+}
