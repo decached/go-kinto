@@ -33,6 +33,13 @@ func (kc KintoClient) HeartBeat() (interface{}, error) {
 	return status, err
 }
 
+func (kc KintoClient) Flush() (interface{}, error) {
+	path := kc.buildURI(FLUSH_URI)
+	var status interface{}
+	err := kc.session.Request("GET", path, nil, nil, &status)
+	return status, err
+}
+
 func buildParams(opts Options) string {
 	params := url.Values{}
 	for key, value := range opts {

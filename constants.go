@@ -4,6 +4,7 @@ const (
 	INFO_URI        = "/"
 	BATCH_URI       = "/batch"
 	HEARTBEAT_URI   = "/__heartbeat__"
+	FLUSH_URI       = "/__flush__"
 	OPENAPI_URI     = "/__api__"
 	BUCKETS_URI     = "/buckets"
 	BUCKET_URI      = "/buckets/%s"

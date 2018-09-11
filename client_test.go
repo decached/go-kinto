@@ -64,3 +64,14 @@ func TestKintoClient_HeartBeat(t *testing.T) {
 	got, _ := kc.HeartBeat()
 	assertJSON(got, want, t)
 }
+
+func TestKintoClient_Flush(t *testing.T) {
+	kc := KintoClientSetup()
+	defer KintoClientTearDown(kc)
+
+	var want interface{}
+	gock.New(TEST_BASE_URI).Get(kc.buildURI(FLUSH_URI)).Reply(200).JSON(want)
+
+	got, _ := kc.Flush()
+	assertJSON(got, want, t)
+}
