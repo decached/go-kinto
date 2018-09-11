@@ -1,0 +1,12 @@
+{
+  "data": {
+    "foo": "bar",
+    "id": "66b18d0c-a3a8-4be7-8ce0-1aceac89ff75",
+    "last_modified": 1536688789851
+  },
+  "permissions": {
+    "write": [
+      "basicauth:51e499a7517691dea423fe5c33accd17e3cd4096a47b8a62b271e2d198666bf0"
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "data": [
+    {
+      "foo": "bar-1",
+      "id": "66b18d0c-a3a8-4be7-8ce0-1aceac89ff75",
+      "last_modified": 1536688789851
+    },
+    {
+      "foo": "bar-2",
+      "status": "disabled",
+      "id": "55100f11-3d56-43b4-a9ca-a3a302e641bb",
+      "last_modified": 1536686490954
+    }
+  ]
+}
