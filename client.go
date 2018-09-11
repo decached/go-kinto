@@ -26,6 +26,13 @@ func (kc KintoClient) buildURI(format string, params ...interface{}) string {
 	return fmt.Sprintf(format, params...)
 }
 
+func (kc KintoClient) Info() (interface{}, error) {
+	path := kc.buildURI(INFO_URI)
+	var info interface{}
+	err := kc.session.Request("GET", path, nil, nil, &info)
+	return info, err
+}
+
 func (kc KintoClient) HeartBeat() (interface{}, error) {
 	path := kc.buildURI(HEARTBEAT_URI)
 	var status map[string]bool

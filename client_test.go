@@ -53,6 +53,18 @@ func KintoClientTearDown(kc *KintoClient) {
 	gock.Off()
 }
 
+func TestKintoClient_Info(t *testing.T) {
+	kc := KintoClientSetup()
+	defer KintoClientTearDown(kc)
+
+	var want interface{}
+	fixture("/info.json", &want)
+	gock.New(TEST_BASE_URI).Get(kc.buildURI(INFO_URI)).Reply(200).JSON(want)
+
+	got, _ := kc.Info()
+	assertJSON(got, want, t)
+}
+
 func TestKintoClient_HeartBeat(t *testing.T) {
 	kc := KintoClientSetup()
 	defer KintoClientTearDown(kc)
