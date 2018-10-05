@@ -6,27 +6,27 @@
 
 ## Features
 
-- [] Authentication
-- [] Buckets
-- [] Collections
-- [] Records
-- [] Groups
-- [] Permissions
+- [ ] Authentication
+- [ ] Buckets
+- [ ] Collections
+- [ ] Records
+- [ ] Groups
+- [ ] Permissions
 - [x] Filtering
 - [x] Sorting
-- [] Paginating
+- [ ] Paginating
 - [x] Selecting fields
-- [] History of changes
-- [] Quotas management
-- [] Accounts
+- [ ] History of changes
+- [ ] Quotas management
+- [ ] Accounts
 - [x] Utility endpoints for OPS and Devs
-- [] Batch operations
-- [] OpenAPI Specification
-- [] Flush Endpoint
-- [] Server timestamps
-- [] Backoff indicators
-- [] Error responses
-- [] Deprecation
+- [ ] Batch operations
+- [ ] OpenAPI Specification
+- [ ] Flush Endpoint
+- [ ] Server timestamps
+- [ ] Backoff indicators
+- [ ] Error responses
+- [ ] Deprecation
 
 ## Bugs? Feature requests? Pull requests?
 All of those are welcome. You can file [issues] or submit [pull requests][pulls] in this repository.
