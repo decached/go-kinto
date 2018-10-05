@@ -16,29 +16,29 @@ type collectionReq struct {
 }
 
 type collectionRes struct {
-	Data        Collection `json:"data"`
-	Permissions Perm       `json:"permissions"`
+	Data Collection `json:"data"`
+	Perm Permission `json:"permissions"`
 }
 
 type collectionsRes struct {
 	Data []Collection `json:"data"`
 }
 
-func (kc KintoClient) CreateCollection(bucket string, collection string) (Collection, error) {
+func (kc KintoClient) CreateCollection(bucket string, collection string) (Collection, Permission, error) {
 	path := kc.buildURI(COLLECTIONS_URI, bucket)
 
 	req := collectionReq{Data: Collection{ID: collection}}
 	reqJSON, err := json.Marshal(req)
 	if err != nil {
-		return Collection{}, err
+		return Collection{}, Permission{}, err
 	}
 
 	var res collectionRes
 	err = kc.session.Request("POST", path, nil, bytes.NewReader(reqJSON), &res)
 	if err != nil {
-		return Collection{}, err
+		return Collection{}, Permission{}, err
 	}
-	return res.Data, nil
+	return res.Data, res.Perm, nil
 }
 
 func (kc KintoClient) GetCollections(bucket string, opts Options) ([]Collection, error) {
@@ -52,13 +52,13 @@ func (kc KintoClient) GetCollections(bucket string, opts Options) ([]Collection,
 	return res.Data, nil
 }
 
-func (kc KintoClient) GetCollection(bucket string, collection string) (Collection, error) {
+func (kc KintoClient) GetCollection(bucket string, collection string) (Collection, Permission, error) {
 	path := kc.buildURI(COLLECTION_URI, bucket, collection)
 
 	var res collectionRes
 	err := kc.session.Request("GET", path, nil, nil, &res)
 	if err != nil {
-		return Collection{}, err
+		return Collection{}, Permission{}, err
 	}
-	return res.Data, nil
+	return res.Data, res.Perm, nil
 }

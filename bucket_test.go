@@ -13,8 +13,9 @@ func TestKintoClient_CreateBucket(t *testing.T) {
 	fixture("/buckets/bucket.json", &res)
 	gock.New(TEST_BASE_URI).Post(kc.buildURI(BUCKETS_URI)).Reply(200).JSON(res)
 
-	got, _ := kc.CreateBucket(TEST_BUCKET)
-	assertJSON(got, res.Data, t)
+	gotBucket, gotPerm, _ := kc.CreateBucket(TEST_BUCKET)
+	assertJSON(gotBucket, res.Data, t)
+	assertJSON(gotPerm, res.Perm, t)
 }
 
 func TestKintoClient_GetBuckets(t *testing.T) {
@@ -34,7 +35,7 @@ func TestKintoClient_GetBucketsWithOpts(t *testing.T) {
 	defer KintoClientTearDown(kc)
 
 	opts := Options{
-		"sort":  "-id",
+		"sort": "-id",
 	}
 
 	var res bucketsRes
@@ -53,6 +54,7 @@ func TestKintoClient_GetBucket(t *testing.T) {
 	fixture("/buckets/bucket.json", &res)
 	gock.New(TEST_BASE_URI).Get(kc.buildURI(BUCKET_URI, TEST_BUCKET)).Reply(200).JSON(res)
 
-	got, _ := kc.GetBucket(TEST_BUCKET, nil)
-	assertJSON(got, res.Data, t)
+	gotBucket, gotPerm, _ := kc.GetBucket(TEST_BUCKET, nil)
+	assertJSON(gotBucket, res.Data, t)
+	assertJSON(gotPerm, res.Perm, t)
 }

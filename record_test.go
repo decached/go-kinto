@@ -13,10 +13,10 @@ func TestKintoClient_CreateRecord(t *testing.T) {
 	fixture("/records/record.json", &res)
 	gock.New(TEST_BASE_URI).Post(kc.buildURI(RECORDS_URI, TEST_BUCKET, TEST_RECORD_ID)).Reply(200).JSON(res)
 
-	got, _ := kc.CreateRecord(TEST_BUCKET, TEST_RECORD_ID, res.Data)
-	assertJSON(got, res.Data, t)
+	gotRec, gotPerm, _ := kc.CreateRecord(TEST_BUCKET, TEST_RECORD_ID, res.Data)
+	assertJSON(gotRec, res.Data, t)
+	assertJSON(gotPerm, res.Perm, t)
 }
-
 
 func TestKintoClient_GetRecords(t *testing.T) {
 	kc := KintoClientSetup()
@@ -55,6 +55,7 @@ func TestKintoClient_GetRecord(t *testing.T) {
 	fixture("/records/record.json", &res)
 	gock.New(TEST_BASE_URI).Get(kc.buildURI(RECORD_URI, TEST_BUCKET, TEST_COLLECTION, TEST_RECORD_ID)).Reply(200).JSON(res)
 
-	got, _ := kc.GetRecord(TEST_BUCKET, TEST_COLLECTION, TEST_RECORD_ID)
-	assertJSON(got, res.Data, t)
+	gotRec, gotPerm, _ := kc.GetRecord(TEST_BUCKET, TEST_COLLECTION, TEST_RECORD_ID)
+	assertJSON(gotRec, res.Data, t)
+	assertJSON(gotPerm, res.Perm, t)
 }

@@ -15,29 +15,29 @@ type bucketReq struct {
 }
 
 type bucketRes struct {
-	Data        Bucket `json:"data"`
-	Permissions Perm   `json:"permissions"`
+	Data Bucket     `json:"data"`
+	Perm Permission `json:"permissions"`
 }
 
 type bucketsRes struct {
 	Data []Bucket `json:"data"`
 }
 
-func (kc KintoClient) CreateBucket(bucket string) (Bucket, error) {
+func (kc KintoClient) CreateBucket(bucket string) (Bucket, Permission, error) {
 	path := kc.buildURI(BUCKETS_URI)
 
 	req := bucketReq{Data: Bucket{ID: bucket}}
 	reqJSON, err := json.Marshal(req)
 	if err != nil {
-		return Bucket{}, err
+		return Bucket{}, Permission{}, err
 	}
 
 	var res bucketRes
 	err = kc.session.Request("POST", path, nil, bytes.NewReader(reqJSON), &res)
 	if err != nil {
-		return Bucket{}, err
+		return Bucket{}, Permission{}, err
 	}
-	return res.Data, nil
+	return res.Data, res.Perm, nil
 }
 
 func (kc KintoClient) GetBuckets(opts Options) ([]Bucket, error) {
@@ -51,13 +51,13 @@ func (kc KintoClient) GetBuckets(opts Options) ([]Bucket, error) {
 	return res.Data, nil
 }
 
-func (kc KintoClient) GetBucket(bucket string, opts Options) (Bucket, error) {
+func (kc KintoClient) GetBucket(bucket string, opts Options) (Bucket, Permission, error) {
 	path := kc.buildURI(BUCKET_URI, bucket)
 
 	var res bucketRes
 	err := kc.session.Request("GET", path, opts, nil, &res)
 	if err != nil {
-		return Bucket{}, err
+		return Bucket{}, Permission{}, err
 	}
-	return res.Data, nil
+	return res.Data, res.Perm, nil
 }

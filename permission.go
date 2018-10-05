@@ -1,6 +1,6 @@
 package kinto
 
-type Perm struct {
-	Read  []string `json:"read"`
-	Write []string `json:"write"`
+type Permission struct {
+	Read  []string `json:"read,omitempty"`
+	Write []string `json:"write,omitempty"`
 }
